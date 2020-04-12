@@ -29,14 +29,14 @@ async list(req, res) {
 
 async delete(req, res) {
 
-const {id} = resq.params;
-const ong_id = req.headers.authorization;
+    const { id } = req.params;
+    const ong_id = req.headers.authorization;
     const incidents = await connection('casos23')
     .where('id',id)
     .select('ong_id')
     .first();
     if (incidents.ong_id !== ong_id ){
-        return res.status(401).json({erro: 'Operation noe permitted'});
+        return res.status(401).json({erro: 'Operation nao permitted'});
     }
     await connection('casos23').where('id', id).delete();
     return res.status(204).send();
